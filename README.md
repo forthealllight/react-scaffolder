@@ -6,7 +6,7 @@ react-scaffolder is a scaffolder for React development,
 including babel、JSX syntax transformation. What's more,
 react-scaffolder use the simplest way to suport mock data.It uses webpack-dev-server to  intercept ajax or fetch request.
 
- 1. **install**
+1.**install**
 
 
     git clone ...
