@@ -68,7 +68,27 @@ module.exports={
   devServer:{
      hot:true,
      contentBase:path.resolve(__dirname,'dist'),
-     publicPath:'/',//载入热更新模块,并且需要在插件中使用HMR
+     publicPath:'/',
+     proxy:{
+       '**':{
+         target:'',
+         secure:false,
+         changeOrigin:true
+       }
+     },
+     setup:function(app){
+       app.use('*',(req,res,next)=>{
+         res.header('Access-Control-Allow-Credentials','true');
+         res.header('Access-Control-Allow-Origin','*');
+         res.header('Access-Control-Allow-Headers','origin,X-Requested-With','Content-Type','Accept');
+         res.header('Access-Control-Allow-Methods','POST,GET');
+         res.header('mode','no-cors');
+         next();
+       });
+       app.use('/app',(req,res,next)=>{
+         res.json({x:1})
+       })
+     }
   },
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
