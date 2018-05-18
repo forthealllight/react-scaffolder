@@ -1,12 +1,12 @@
 var htmlWebpackPlugin=require('html-webpack-plugin');
 var webpack=require('webpack');
 var path=require('path');
+var urlTarget='';
 module.exports={
   entry:{
     main:'./src/app.js',
     vendor:['react', 'react-dom','react-redux','react-router','redux']
   },
-  //dirname表示的是当前的绝对地址nodejs
   output:{
     path:path.resolve(__dirname,'dist'),
     filename:'js/[name].bundle.js',
@@ -71,7 +71,7 @@ module.exports={
      publicPath:'/',
      proxy:{
        '**':{
-         target:'',
+         target:urlTarget,
          secure:false,
          changeOrigin:true
        }
@@ -82,18 +82,21 @@ module.exports={
          res.header('Access-Control-Allow-Origin','*');
          res.header('Access-Control-Allow-Headers','origin,X-Requested-With','Content-Type','Accept');
          res.header('Access-Control-Allow-Methods','POST,GET');
-         res.header('mode','no-cors');
+         if(urlTarget==''){
+           const url=req.originalUrl;
+           if(url.length>1&&url.indexOf('.ico')=='-1'&&url.indexOf('.js')==-1&&url.indexOf('.css')==-1){
+             const data=require('./mock'+url);
+             res.json(data);
+           }
+         }
          next();
        });
-       app.use('/app',(req,res,next)=>{
-         res.json({x:1})
-       })
      }
   },
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
       name:'vendor', filename:'vendor.bundle.js'
-    }),//公用的一些库js
+    }),
     new htmlWebpackPlugin({
       filename:'index.html',
       template:'index.html',
@@ -101,7 +104,7 @@ module.exports={
       title:'webpack demo'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),//当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
+    new webpack.NamedModulesPlugin(),
   ],
   devtool:"inline-source-map"
 }

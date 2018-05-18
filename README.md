@@ -10,7 +10,7 @@ a Scaffold for React use Webpack , surport ES6，JSX and Hot module
   --cd react-scaffold
   --npm install
   
-  --npm run build(to pack the js ) or npm run server (to hotLoadMoule)
+  --npm run webpack(to pack the js ) or npm run build (to hotLoadMoule)
   
   
 sincerely ~
