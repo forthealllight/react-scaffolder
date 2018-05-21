@@ -20,7 +20,8 @@ module.exports={
         exclude:path.resolve(__dirname,'node_modules'),
         include:path.resolve(__dirname,'src'),
         query:{
-          presets:['latest','stage-0', 'react']
+          presets:['latest','stage-0', 'react'],
+          plugins:['transform-decorators-legacy']
         }
       },{
         test:/\.tpl$/,
