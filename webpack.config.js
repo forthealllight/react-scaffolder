@@ -85,6 +85,7 @@ module.exports={
          res.header('Access-Control-Allow-Methods','POST,GET');
          if(urlTarget==''){
            const url=req.originalUrl;
+           //deal with the 'get' request 
            let index=url.indexOf('?');
            if(index!=-1){
               url=url.slice(0,index);
