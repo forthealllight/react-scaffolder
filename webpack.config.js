@@ -38,7 +38,7 @@ module.exports={
         loader:'style-loader!css-loader!postcss-loader!sass-loader'
       },{
         test:/\.html$/,
-        loader:'html-loader'
+        loader:['html-loader','html-withimg-loader']
       },{
         test:/\.(png|jpg|gif|svg)$/i,
         loader:'file-loader',
